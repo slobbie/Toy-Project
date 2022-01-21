@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTodoDispatch, useTodoNextId } from './TodoContext';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 
@@ -76,15 +77,41 @@ const Input = styled.input`
 `;
 const TodoCreate = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [value, setValue] = useState('');
+
+  const dispatch = useTodoDispatch();
+  const nextId = useTodoNextId();
 
   const onToggle = () => setOpen(!open);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setValue(e.target.value);
+
+  const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 새로고침 방지 최초 한번만
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue(''); // 입력후엔 초기셋팅
+    setOpen(false); // 입력후엔 인풋창을 닫아준다.
+    nextId.current += 1;
+  };
 
   return (
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm>
-            <Input autoFocus placeholder='할 일을 입력 후, Enter 를 누르세요' />
+          <InsertForm onSubmit={onSubmit}>
+            <Input
+              autoFocus
+              placeholder='할 일을 입력 후, Enter 를 누르세요'
+              onChange={onChange}
+              value={value}
+            />
           </InsertForm>
         </InsertFormPositioner>
       )}
@@ -95,4 +122,4 @@ const TodoCreate = () => {
   );
 };
 
-export default TodoCreate;
+export default React.memo(TodoCreate);

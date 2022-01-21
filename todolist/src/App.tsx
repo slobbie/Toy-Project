@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoProvider from './components/TodoContext';
 import TodoCreate from './components/TodoCreate';
 import TodoHeader from './components/TodoHeader';
 import TodoList from './components/TodoList';
@@ -8,11 +9,13 @@ import './styles/init.scss';
 function App() {
   return (
     <div className='App'>
-      <TodoTemplate>
-        <TodoHeader />
-        <TodoList />
-        <TodoCreate />
-      </TodoTemplate>
+      <TodoProvider>
+        <TodoTemplate>
+          <TodoHeader />
+          <TodoList />
+          <TodoCreate />
+        </TodoTemplate>
+      </TodoProvider>
     </div>
   );
 }
