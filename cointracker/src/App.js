@@ -2,17 +2,19 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [cost, setCost] = useState([]);
-  const [result, setResult] = useState([]);
-  const [keyword, setKeyword] = useState('');
-  const [searchInput, setSearchInput] = useState(false);
+  const [loading, setLoading] = useState(true); // 로딩
+  const [coins, setCoins] = useState([]); // api 값을 담기 위한 상태
+  const [cost, setCost] = useState([]); // 내가 가진 cost 로 검색한 coin을 얼마나 살수 있는지 보여주는값
+  const [result, setResult] = useState([]); // onSubmit 될때 result에 coin 값을 담기 위한 상태
+  const [keyword, setKeyword] = useState(''); // 부분 랜더링을 위한 상태값
+  const [searchInput, setSearchInput] = useState(false); // 부분렌더링
 
   const onChange = (e) => {
+    // cost 값을 업데이트 해주기위한 이벤트
     setCost(e.target.value);
   };
   const onChangeValue = (e) => {
+    // 키워드를 업데이트 하기위한 이벤트
     setKeyword(e.target.value);
   };
 
@@ -24,8 +26,8 @@ function App() {
         coin.name === keyword.toUpperCase() ||
         coin.symbol === keyword.toUpperCase()
       ) {
-        setResult(coin);
-        setSearchInput(true);
+        setResult(coin); // 키워드값과 coin 상태가 같다면 coin 값을 담게된다
+        setSearchInput(true); // 조건이 맞다면 렌더링
       }
       return;
     });
