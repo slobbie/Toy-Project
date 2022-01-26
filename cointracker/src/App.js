@@ -26,11 +26,6 @@ function App() {
       ) {
         setResult(coin);
         setSearchInput(true);
-      } else if (
-        coin.name !== keyword.toUpperCase() ||
-        coin.symbol !== keyword.toUpperCase()
-      ) {
-        setSearchInput(null);
       }
       return;
     });
