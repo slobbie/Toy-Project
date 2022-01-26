@@ -35,10 +35,10 @@ type state = {
   done: boolean;
 };
 
-type Action =
-  | { type: 'CREATE'; todo: state; id: number }
-  | { type: 'TOGGLE'; id: number }
-  | { type: 'REMOVE'; id: number };
+// type Action =
+//   | { type: 'CREATE'; todo: state; id: number }
+//   | { type: 'TOGGLE'; id: number }
+//   | { type: 'REMOVE'; id: number };
 
 const todoReducer = (state: any, action: any) => {
   switch (action.type) {
